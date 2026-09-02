@@ -14,7 +14,7 @@ class WsFlushCache extends Module
     {
         $this->name = 'wsflushcache';
         $this->tab = 'administration';
-        $this->version = '1.0.1';
+        $this->version = '1.0.2';
         $this->author = 'Web Systems';
         $this->need_instance = 0;
         $this->bootstrap = true;

@@ -4,7 +4,14 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class AdminWsFlushCacheController extends ModuleAdminController
+/**
+ * Celowo AdminController, nie ModuleAdminController.
+ * Ten drugi w konstruktorze rozwiazuje modul przez Module::getInstanceByName()
+ * i rzuca "Module wsflushcache not found" zanim dojdzie do postProcess().
+ * Do endpointu ajax rozwiazywanie modulu nie jest do niczego potrzebne -
+ * token i uprawnienia i tak obsluguje wpis w ps_tab.
+ */
+class AdminWsFlushCacheController extends AdminController
 {
     /** @var string[] */
     private $done = [];

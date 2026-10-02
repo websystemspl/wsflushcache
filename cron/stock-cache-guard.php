@@ -57,7 +57,10 @@ if ($current === $previous) {
     exit(0);
 }
 
-$flushed = Cache::getInstance()->flush();
+// getInstance() returns null when the configured caching class does not exist
+// (e.g. CacheFs on PS 8 with the cache disabled), then there is nothing to flush.
+$cache = Cache::getInstance();
+$flushed = $cache ? $cache->flush() : 'no object cache';
 file_put_contents($stateFile, $current . PHP_EOL, LOCK_EX);
 file_put_contents(
     $logFile,

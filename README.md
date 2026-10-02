@@ -20,3 +20,4 @@ Run as the shop user, every 5 minutes:
 
 State and log are kept outside the docroot in `<shop root>/../var/`
 (`stock-cache-guard.state`, `stock-cache-guard.log`). The script refuses to run over HTTP.
+With the object cache disabled (dev) it only records the checksum.

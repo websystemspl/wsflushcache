@@ -21,3 +21,13 @@ Run as the shop user, every 5 minutes:
 State and log are kept outside the docroot in `<shop root>/../var/`
 (`stock-cache-guard.state`, `stock-cache-guard.log`). The script refuses to run over HTTP.
 With the object cache disabled (dev) it only records the checksum.
+
+## Db::getRow() override
+
+`override/classes/db/Db.php` fixes a core inconsistency of the query cache: a cached empty
+`getRow()` result comes back as `[]` instead of `false`, and `getValue()` then returns
+`null`. `Product::getIdProductAttributeByIdAttributes()` checks for `=== false`, so with
+Memcached on, picking a value that has no combination with the other selected attributes
+(e.g. "Rodzaj: Opaque Dentin" while "Kolor: A1B" is selected) reset the product page to
+the default combination instead of finding the closest one. Installed on module install,
+or by `upgrade/upgrade-1.0.4.php` on existing shops.
